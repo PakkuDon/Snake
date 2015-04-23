@@ -26,6 +26,14 @@ public class GameModel {
     }
     
     // Getters
+    public int getWidth() {
+        return width;
+    }
+    
+    public int getHeight() {
+        return height;
+    }
+    
     public List<Point> getSnake() { 
         return snake.getBody();
     }
@@ -75,8 +83,9 @@ public class GameModel {
         
         // Check if snake has collided with itself
         // If true, end game
-        for (Point p : snake.getBody()) {
-            if (head.equals(p)) {
+        List<Point> snakeBody = snake.getBody();
+        for (int i = 1; i < snakeBody.size(); i++) {
+            if (head.equals(snakeBody.get(i))) {
                 this.isRunning = false;
                 break;
             }

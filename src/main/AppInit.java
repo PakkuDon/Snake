@@ -9,7 +9,7 @@ import view.AppFrame;
  */
 public class AppInit {
     public static void main(String[] args) {
-        GameModel model = new GameModel(200, 200);
+        GameModel model = new GameModel(100, 100);
         AppFrame view = new AppFrame(model);
     }
 }

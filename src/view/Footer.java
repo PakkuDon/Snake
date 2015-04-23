@@ -5,6 +5,8 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import view.model.GameViewModel;
+
 public class Footer extends JPanel {
     // Instance variables
     private AppFrame view;
@@ -24,5 +26,10 @@ public class Footer extends JPanel {
         // Add components to panel
         this.add(scoreLabel);
         this.add(foodScoreLabel);
+    }
+    
+    public void update(GameViewModel viewModel) {
+        scoreLabel.setText("Score: " + viewModel.getScore());
+        foodScoreLabel.setText("Food score: " + viewModel.getFoodScore());
     }
 }

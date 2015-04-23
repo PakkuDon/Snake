@@ -20,13 +20,14 @@ public class GameModel {
         this.width = width;
         this.height = height;
         this.rand = new Random();
+        food = new Food(rand.nextInt(width), rand.nextInt(height));
         
         this.start();
     }
     
     // Getters
-    public List<Snake.Node> getSnake() { 
-        return snake.getNodes();
+    public List<Point> getSnake() { 
+        return snake.getBody();
     }
     
     public Food getFood() {
@@ -39,7 +40,10 @@ public class GameModel {
     
     // Actions
     public void start() {
-        snake = new Snake(this.width / 2, this.height / 2, INITIAL_SNAKE_LENGTH);
+        snake = new Snake(this.width / 2, this.height / 2, 
+                INITIAL_SNAKE_LENGTH);
+        spawnFood();
+        score = 0;
     }
     
     public void spawnFood() {

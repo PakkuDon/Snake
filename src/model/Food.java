@@ -2,30 +2,28 @@ package model;
 
 public class Food {
     // Instance variables
-    private int x;
-    private int y;
+    private Point point;
     
     // Constructor
     public Food(int x, int y) {
-        this.setX(x);
-        this.setY(y);
+        this.point = new Point(x, y);
     }
     
     // Getters
     public int getX() {
-        return x;
+        return point.getX();
     }
     
     public int getY() {
-        return y;
+        return point.getY();
     }
     
     // Setters
     public void setX(int x) {
-        this.x = x;
+        this.point.setX(x);
     }
     
     public void setY(int y) {
-        this.y = y;
+        this.point.setY(y);
     }
 }

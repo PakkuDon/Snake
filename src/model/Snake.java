@@ -31,6 +31,10 @@ public class Snake {
         return direction;
     }
     
+    public Point getHead() {
+        return body.get(0);
+    }
+    
     // Setters
     public void setDirection(Direction direction) {
         this.direction = direction;
@@ -44,11 +48,12 @@ public class Snake {
     
     public void move() {
         // Make tail node new head
+        Point previousHead = body.get(0);
         Point newHead = body.remove(body.size() - 1);
         body.add(0, newHead);
         
         // Moves snake head based on current direction
-        newHead.setX(newHead.getX() + direction.getXShift());
-        newHead.setY(newHead.getY() + direction.getYShift());
+        newHead.setX(previousHead.getX() + direction.getXShift());
+        newHead.setY(previousHead.getY() + direction.getYShift());
     }
 }

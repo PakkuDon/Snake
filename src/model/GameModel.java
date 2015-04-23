@@ -13,16 +13,16 @@ public class GameModel {
     private Random rand;
     private int width;
     private int height;
-    private int score; 
+    private int score;
+    private boolean isRunning;
    
     // Constructor
     public GameModel(int width, int height) {
         this.width = width;
         this.height = height;
         this.rand = new Random();
-        food = new Food(rand.nextInt(width), rand.nextInt(height));
-        
-        this.start();
+        this.food = new Food(0, 0);
+        this.isRunning = false;
     }
     
     // Getters
@@ -38,21 +38,49 @@ public class GameModel {
         return score;
     }
     
+    public boolean isRunning() {
+        return isRunning;
+    }
+    
     // Actions
     public void start() {
         snake = new Snake(this.width / 2, this.height / 2, 
                 INITIAL_SNAKE_LENGTH);
         spawnFood();
-        score = 0;
+        this.score = 0;
+        this.isRunning = true;
     }
     
     public void spawnFood() {
         food.setX(rand.nextInt(width));
         food.setY(rand.nextInt(height));
+        food.resetScore();
     }
     
     public void move() {
+        // Move snake 
         snake.move();
+        Point head = snake.getHead();
+        
+        // Check if snake has collected food
+        // If true, update score and spawn new food instance
+        // Otherwise decrease food points
+        if (head.equals(food.getPoint())) {
+            this.score += food.getScore();
+            spawnFood();
+        }
+        else {
+            food.decreaseScore();
+        }
+        
+        // Check if snake has collided with itself
+        // If true, end game
+        for (Point p : snake.getBody()) {
+            if (head.equals(p)) {
+                this.isRunning = false;
+                break;
+            }
+        }
     }
     
     public void setSnakeDirection(Direction direction) {

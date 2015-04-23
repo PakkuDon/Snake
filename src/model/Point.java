@@ -29,14 +29,18 @@ public class Point {
         this.y = y;
     }
     
-    // Actions
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        
         if (!(obj instanceof Point)) {
             return false;
         }
-        Point b = (Point)obj;
         
-        return true;
+        // Return true if points contain same x,y values
+        Point b = (Point)obj;
+        return this.x == b.x && this.y == b.y;
     }
 }

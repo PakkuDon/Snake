@@ -79,12 +79,12 @@ public class AppFrame extends JFrame {
 
         // Bind named inputs to event handlers
         actionMap.put(Direction.NORTH.getKey(), 
-                new SetDirectionController(model, this, Direction.NORTH));
+                new SetDirectionController(model, Direction.NORTH));
         actionMap.put(Direction.EAST.getKey(),
-                new SetDirectionController(model, this, Direction.EAST));
+                new SetDirectionController(model, Direction.EAST));
         actionMap.put(Direction.SOUTH.getKey(),
-                new SetDirectionController(model, this, Direction.SOUTH));
+                new SetDirectionController(model, Direction.SOUTH));
         actionMap.put(Direction.WEST.getKey(), 
-                new SetDirectionController(model, this, Direction.WEST));
+                new SetDirectionController(model, Direction.WEST));
     }
 }

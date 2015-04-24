@@ -2,6 +2,8 @@ package view;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 
 import javax.swing.JPanel;
 
@@ -25,11 +27,26 @@ public class GameScreen extends JPanel {
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
         if (viewModel != null) {
+            // Flip graphics context along y-axis
+            Graphics2D g2d = (Graphics2D)g;
+            AffineTransform transform = AffineTransform
+                    .getTranslateInstance(0, this.getHeight());
+            transform.scale(1, -1);
+            g2d.setTransform(transform);
+
+            // Calculate pixel dimensions
             int cellWidth = this.getWidth() / viewModel.getWidth();
             int cellHeight = this.getHeight() / viewModel.getHeight();
+
+            // Set snake colour based on game state 
+            if (viewModel.isRunning()) {
+                g.setColor(Color.WHITE);
+            }
+            else {
+                g.setColor(Color.DARK_GRAY);
+            }
             
-            g.setColor(Color.WHITE);
-            // Draw snake
+            // Draw snake body
             for (Point p : viewModel.getSnake()) {
                 int startX = cellWidth * p.getX();
                 int startY = cellHeight * p.getY();

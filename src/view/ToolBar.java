@@ -27,6 +27,12 @@ public class ToolBar extends JToolBar {
         // Disable dragging
         this.setFloatable(false);
         
+        // Make components non-focusable so that key-bindings can work
+        this.setFocusable(false);
+        newGameBtn.setFocusable(false);
+        pauseBtn.setFocusable(false);
+        showScoresBtn.setFocusable(false);
+        
         // Add components to panel
         this.add(newGameBtn);
         this.add(pauseBtn);

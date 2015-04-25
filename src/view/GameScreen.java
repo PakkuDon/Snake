@@ -8,6 +8,7 @@ import java.awt.geom.AffineTransform;
 import javax.swing.JPanel;
 
 import model.Point;
+import model.State;
 import view.model.GameViewModel;
 
 public class GameScreen extends JPanel {
@@ -39,7 +40,7 @@ public class GameScreen extends JPanel {
             int cellHeight = this.getHeight() / viewModel.getHeight();
 
             // Set snake colour based on game state 
-            if (viewModel.isRunning()) {
+            if (viewModel.getState() == State.RUNNING) {
                 g.setColor(Color.WHITE);
             }
             else {

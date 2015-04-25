@@ -5,6 +5,7 @@ import javax.swing.JToolBar;
 
 import model.GameModel;
 import controller.NewGameController;
+import controller.PauseGameController;
 
 public class ToolBar extends JToolBar {
     // Instance variables
@@ -23,6 +24,7 @@ public class ToolBar extends JToolBar {
         
         // Register event handlers
         newGameBtn.addActionListener(new NewGameController(model, view));
+        pauseBtn.addActionListener(new PauseGameController(model, view));
         
         // Disable dragging
         this.setFloatable(false);
@@ -37,5 +39,14 @@ public class ToolBar extends JToolBar {
         this.add(newGameBtn);
         this.add(pauseBtn);
         this.add(showScoresBtn);
+    }
+    
+    public void setPauseText(boolean isPaused) {
+        if (isPaused) {
+            pauseBtn.setText("Unpause");
+        }
+        else {
+            pauseBtn.setText("Pause");
+        }
     }
 }

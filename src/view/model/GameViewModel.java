@@ -3,6 +3,7 @@ package view.model;
 import java.util.List;
 
 import model.Point;
+import model.State;
 
 public class GameViewModel {
     // Instance variables
@@ -12,19 +13,19 @@ public class GameViewModel {
     private Point food;
     private int score;
     private int foodScore;
-    private boolean isRunning;
+    private State state;
     
     // Constructor
     public GameViewModel(int width, int height, 
             List<Point> snake, Point food, 
-            int score, int foodScore, boolean isRunning) {
+            int score, int foodScore, State state) {
         this.width = width;
         this.height = height;
         this.snake = snake;
         this.food = food;
         this.score = score;
         this.foodScore = foodScore;
-        this.isRunning = isRunning;
+        this.state = state;
     }
     
     // Getters
@@ -52,7 +53,7 @@ public class GameViewModel {
         return foodScore;
     }
     
-    public boolean isRunning() {
-        return isRunning;
+    public State getState() {
+        return state;
     }
 }

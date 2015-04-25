@@ -14,7 +14,7 @@ public class GameModel {
     private int width;
     private int height;
     private int score;
-    private boolean isRunning;
+    private State state;
 
     // Constructor
     public GameModel(int width, int height) {
@@ -22,7 +22,7 @@ public class GameModel {
         this.height = height;
         this.rand = new Random();
         this.food = new Food(0, 0);
-        this.isRunning = false;
+        this.state = State.INACTIVE;
     }
 
     // Getters
@@ -46,8 +46,8 @@ public class GameModel {
         return score;
     }
 
-    public boolean isRunning() {
-        return isRunning;
+    public State getGameState() {
+        return state;
     }
 
     // Actions
@@ -56,7 +56,7 @@ public class GameModel {
                 INITIAL_SNAKE_LENGTH);
         spawnFood();
         this.score = 0;
-        this.isRunning = true;
+        this.state = State.RUNNING;
     }
 
     public void spawnFood() {
@@ -107,7 +107,7 @@ public class GameModel {
         List<Point> snakeBody = snake.getBody();
         for (int i = 1; i < snakeBody.size(); i++) {
             if (head.equals(snakeBody.get(i))) {
-                this.isRunning = false;
+                this.state = State.INACTIVE;
                 break;
             }
         }
@@ -115,5 +115,14 @@ public class GameModel {
 
     public void setSnakeDirection(Direction direction) {
         snake.setDirection(direction);
+    }
+    
+    public void setPaused(boolean pause) {
+        if (pause) {
+            this.state = State.PAUSED;
+        }
+        else if (this.state != State.INACTIVE){
+            this.state = State.RUNNING;
+        }
     }
 }

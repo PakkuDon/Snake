@@ -28,7 +28,7 @@ public class GameTickController implements ActionListener {
                 model.getWidth(), model.getHeight(),
                 model.getSnake(), model.getFood().getPoint(), 
                 model.getScore(), model.getFood().getScore(), 
-                model.isRunning());
+                model.getGameState());
         
         // Update view
         view.update(viewModel);

@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ActionMap;
@@ -13,8 +12,10 @@ import javax.swing.Timer;
 
 import model.Direction;
 import model.GameModel;
+import model.State;
 import view.model.GameViewModel;
 import controller.GameTickController;
+import controller.PauseGameController;
 import controller.SetDirectionController;
 
 public class AppFrame extends JFrame {
@@ -54,11 +55,23 @@ public class AppFrame extends JFrame {
     }
 
     public void update(GameViewModel viewModel) {
-        if (!viewModel.isRunning()) {
+        if (viewModel.getState() != State.RUNNING) {
             timer.stop();
         }
         screen.update(viewModel);
         footer.update(viewModel);
+    }
+    
+    public void setPaused(boolean pauseFlag) {
+        if (pauseFlag) {
+            timer.stop();
+        }
+        else {
+            timer.start();
+        }
+        
+        // Update view to accommodate for pause status
+        toolBar.setPauseText(pauseFlag);
     }
     
     private void setKeyBindings(GameModel model) {
@@ -76,6 +89,7 @@ public class AppFrame extends JFrame {
                 Direction.SOUTH.getKey());
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), 
                 Direction.WEST.getKey());
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_P, 0), "pause");
 
         // Bind named inputs to event handlers
         actionMap.put(Direction.NORTH.getKey(), 
@@ -86,5 +100,6 @@ public class AppFrame extends JFrame {
                 new SetDirectionController(model, Direction.SOUTH));
         actionMap.put(Direction.WEST.getKey(), 
                 new SetDirectionController(model, Direction.WEST));
+        actionMap.put("pause", new PauseGameController(model, this));
     }
 }

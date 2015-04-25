@@ -6,11 +6,13 @@ import java.util.Random;
 public class GameModel {
     // Constants
     private static final int INITIAL_SNAKE_LENGTH = 3;
+    private static final int HIGH_SCORES_SIZE = 5; 
 
     // Instance variables
     private Snake snake;
     private Food food;
     private Random rand;
+    private ScoreRecord[] records;
     private int width;
     private int height;
     private int score;
@@ -21,8 +23,14 @@ public class GameModel {
         this.width = width;
         this.height = height;
         this.rand = new Random();
+        this.records = new ScoreRecord[HIGH_SCORES_SIZE]; 
         this.food = new Food(0, 0);
         this.state = State.INACTIVE;
+
+        // Populate high scores with empty scores
+        for (int i = 0; i < records.length; i++) {
+            records[i] = new ScoreRecord();
+        }
     }
 
     // Getters
@@ -48,6 +56,10 @@ public class GameModel {
 
     public State getGameState() {
         return state;
+    }
+
+    public ScoreRecord[] getRecords() {
+        return records;
     }
 
     // Actions
@@ -116,7 +128,7 @@ public class GameModel {
     public void setSnakeDirection(Direction direction) {
         snake.setDirection(direction);
     }
-    
+
     public void setPaused(boolean pause) {
         if (pause) {
             this.state = State.PAUSED;
@@ -124,5 +136,37 @@ public class GameModel {
         else if (this.state != State.INACTIVE){
             this.state = State.RUNNING;
         }
+    }
+
+    public boolean saveScore(ScoreRecord record) {
+        // Reject record if its score does not fit on the scoreboard
+        if (!isNewRecord(record.getScore())) {
+            return false;
+        }
+        // Else, find position to insert new score at
+        for (int i = HIGH_SCORES_SIZE - 2; i >= 0; i--) {
+            if (record.getScore() <= records[i].getScore()) {
+                break;
+            }
+            else {
+                ScoreRecord temp = records[i];
+                records[i] = record;
+                if (i != HIGH_SCORES_SIZE - 1) {
+                    records[i + 1] = temp;
+                }
+            }
+        }
+        return true;
+    }
+
+
+    /**
+     * Checks whether or not the given score beats the lowest score 
+     * on the high scores list.
+     * @param score
+     * @return
+     */
+    public boolean isNewRecord(int score) {
+        return score > records[records.length - 1].getScore();
     }
 }

@@ -2,7 +2,7 @@ package model;
 
 public class ScoreRecord {
     // Instance variables
-    public String name;
+    private String name;
     private int score;
 
     // Constructor

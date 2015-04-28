@@ -1,12 +1,19 @@
 package model;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 public class GameModel {
     // Constants
     private static final int INITIAL_SNAKE_LENGTH = 3;
-    private static final int HIGH_SCORES_SIZE = 5; 
+    private static final int HIGH_SCORES_SIZE = 5;
+    private static final String SCORES_FILE = "scores.txt";
 
     // Instance variables
     private Snake snake;
@@ -27,9 +34,41 @@ public class GameModel {
         this.food = new Food(0, 0);
         this.state = State.INACTIVE;
 
-        // Populate high scores with empty scores
-        for (int i = 0; i < records.length; i++) {
-            records[i] = new ScoreRecord();
+        // Attempt to load high scores from file
+        try {
+            Scanner sc = new Scanner(new File(SCORES_FILE));
+            // Parse contents of each line
+            for (int i = 0; i < records.length; i++) {
+                String line = sc.nextLine();
+                String[] tokens = line.split(",");
+                if (tokens.length != 2) {
+                    throw new IOException("Scores in invalid format");
+                }
+
+                int score = Integer.parseInt(tokens[1]);
+                ScoreRecord record = new ScoreRecord(tokens[0], score);
+                records[i] = record;
+            }
+
+            // If file has trailing records, throw validation error
+            if (sc.hasNext()) {
+                throw new IOException("Scores in invalid format");
+            }
+
+            // Sort high score list
+            Arrays.sort(records, new Comparator<ScoreRecord>() {
+                @Override
+                public int compare(ScoreRecord a, ScoreRecord b) {
+                    return b.getScore() - a.getScore();
+                }
+            });
+        }
+        catch (NumberFormatException | IOException e) {
+            // TODO: Do something with exception
+            // Populate high scores with empty scores
+            for (int i = 0; i < records.length; i++) {
+                records[i] = new ScoreRecord();
+            }
         }
     }
 
@@ -155,6 +194,19 @@ public class GameModel {
                     records[i + 1] = temp;
                 }
             }
+        }
+
+        // Write score data out to file
+        try {
+            FileWriter fw = new FileWriter(SCORES_FILE);
+            for (int i = 0; i < records.length; i++) {
+                fw.write(String.format("%s,%s%n", 
+                        records[i].getName(), records[i].getScore()));
+            }
+            fw.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
         return true;
     }

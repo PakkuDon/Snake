@@ -30,4 +30,14 @@ public enum Direction {
     public String getKey() {
         return key;
     }
+    
+    /**
+     * Returns true if the given direction is the exact opposite of 
+     * this direction.
+     * @param b
+     * @return
+     */
+    public boolean isOpposite(Direction b) {
+        return Math.abs(this.ordinal() - b.ordinal()) == 2; 
+    }
 }

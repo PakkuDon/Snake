@@ -172,8 +172,16 @@ public class GameModel {
         }
     }
 
-    public void setSnakeDirection(Direction direction) {
+    public boolean setSnakeDirection(Direction direction) {
+        // If given direction opposite or equal to snake's current direction
+        // return false
+        if (snake.getDirection().isOpposite(direction) 
+                || direction == snake.getDirection()) {
+            return false;
+        }
+        // Else set direction
         snake.setDirection(direction);
+        return true;
     }
 
     public void setPaused(boolean pause) {

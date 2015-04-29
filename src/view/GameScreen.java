@@ -3,7 +3,9 @@ package view;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
@@ -28,38 +30,38 @@ public class GameScreen extends JPanel {
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
         if (viewModel != null) {
-            // Flip graphics context along y-axis
-            Graphics2D g2d = (Graphics2D)g;
-            AffineTransform transform = AffineTransform
-                    .getTranslateInstance(0, this.getHeight());
-            transform.scale(1, -1);
-            g2d.setTransform(transform);
+            // Create image to draw game state on
+            BufferedImage image = new BufferedImage(
+                    viewModel.getWidth(), viewModel.getHeight(), 
+                    BufferedImage.TYPE_INT_RGB);
 
-            // Calculate pixel dimensions
-            int cellWidth = this.getWidth() / viewModel.getWidth();
-            int cellHeight = this.getHeight() / viewModel.getHeight();
+            // Flip graphics context along y-axis
+            Graphics2D imageContext = (Graphics2D)image.createGraphics();
+            AffineTransform transform = AffineTransform
+                    .getTranslateInstance(0, viewModel.getHeight());
+            transform.scale(1, -1);
+            imageContext.setTransform(transform);
 
             // Set snake colour based on game state 
             if (viewModel.getState() == State.RUNNING) {
-                g.setColor(Color.WHITE);
+                imageContext.setColor(Color.WHITE);
             }
             else {
-                g.setColor(Color.DARK_GRAY);
+                imageContext.setColor(Color.DARK_GRAY);
             }
-            
+
             // Draw snake body
             for (Point p : viewModel.getSnake()) {
-                int startX = cellWidth * p.getX();
-                int startY = cellHeight * p.getY();
-                g.fillRect(startX, startY, cellWidth, cellHeight);
+                imageContext.fillRect(p.getX(), p.getY(), 1, 1);
             }
 
             // Draw food
             Point foodPoint = viewModel.getFood();
-            g.setColor(Color.RED);
-            g.fillRect(foodPoint.getX() * cellWidth, 
-                    foodPoint.getY() * cellHeight, 
-                    cellWidth, cellHeight);
+            imageContext.setColor(Color.RED);
+            imageContext.fillRect(foodPoint.getX(), foodPoint.getY(), 1, 1);
+
+            // Draw image and scale it to fill component
+            g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), null);
         }
     }
 

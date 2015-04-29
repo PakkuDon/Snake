@@ -10,6 +10,6 @@ import view.AppFrame;
 public class AppInit {
     public static void main(String[] args) {
         GameModel model = new GameModel(50, 40);
-        AppFrame view = new AppFrame(model);
+        new AppFrame(model);
     }
 }

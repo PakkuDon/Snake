@@ -1,7 +1,6 @@
 package controller;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.AbstractAction;
 
@@ -9,6 +8,7 @@ import model.GameModel;
 import model.State;
 import view.AppFrame;
 
+@SuppressWarnings("serial")
 public class PauseGameController extends AbstractAction {
     // Instance variables
     private GameModel model;

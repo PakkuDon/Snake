@@ -18,9 +18,9 @@ import controller.GameTickController;
 import controller.PauseGameController;
 import controller.SetDirectionController;
 
+@SuppressWarnings("serial")
 public class AppFrame extends JFrame {
     // Instance variables
-    private GameModel model;
     private ToolBar toolBar;
     private GameScreen screen;
     private Footer footer;
@@ -29,10 +29,9 @@ public class AppFrame extends JFrame {
     // Constructor
     public AppFrame(GameModel model) {
         // Initialise components
-        this.model = model;
         this.toolBar = new ToolBar(model, this);
-        this.screen = new GameScreen(this);
-        this.footer = new Footer(this);
+        this.screen = new GameScreen();
+        this.footer = new Footer();
         this.timer = new Timer(100, new GameTickController(model, this));
 
         // Set frame properties
@@ -40,6 +39,7 @@ public class AppFrame extends JFrame {
         this.setSize(400, 400);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setKeyBindings(model);
+        this.setLocationByPlatform(true);
 
         // Add components to frame
         this.add(toolBar, BorderLayout.NORTH);

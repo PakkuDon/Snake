@@ -35,8 +35,9 @@ public class GameModel {
         this.state = State.INACTIVE;
 
         // Attempt to load high scores from file
+        Scanner sc = null;
         try {
-            Scanner sc = new Scanner(new File(SCORES_FILE));
+            sc = new Scanner(new File(SCORES_FILE));
             // Parse contents of each line
             for (int i = 0; i < records.length; i++) {
                 String line = sc.nextLine();
@@ -54,6 +55,8 @@ public class GameModel {
             if (sc.hasNext()) {
                 throw new IOException("Scores in invalid format");
             }
+            
+            sc.close();
 
             // Sort high score list
             Arrays.sort(records, new Comparator<ScoreRecord>() {
@@ -68,6 +71,11 @@ public class GameModel {
             // Populate high scores with empty scores
             for (int i = 0; i < records.length; i++) {
                 records[i] = new ScoreRecord();
+            }
+        }
+        finally {
+            if (sc != null) {
+                sc.close();
             }
         }
     }

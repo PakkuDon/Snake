@@ -8,9 +8,9 @@ import controller.NewGameController;
 import controller.PauseGameController;
 import controller.ShowScoresController;
 
+@SuppressWarnings("serial")
 public class ToolBar extends JToolBar {
     // Instance variables
-    private AppFrame view;
     private JButton newGameBtn;
     private JButton pauseBtn;
     private JButton showScoresBtn;
@@ -18,7 +18,6 @@ public class ToolBar extends JToolBar {
     // Constructor
     public ToolBar(GameModel model, AppFrame view) {
         // Initialise components
-        this.view = view;
         this.newGameBtn = new JButton("New game");
         this.pauseBtn = new JButton("Pause");
         this.showScoresBtn = new JButton("Show scores");

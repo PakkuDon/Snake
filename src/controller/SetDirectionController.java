@@ -6,9 +6,8 @@ import javax.swing.AbstractAction;
 
 import model.Direction;
 import model.GameModel;
-import view.AppFrame;
-import view.model.GameViewModel;
 
+@SuppressWarnings("serial")
 public class SetDirectionController extends AbstractAction {
     // Instance variables
     private GameModel model;

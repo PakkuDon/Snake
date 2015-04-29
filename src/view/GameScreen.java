@@ -3,7 +3,6 @@ package view;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
@@ -13,14 +12,13 @@ import model.Point;
 import model.State;
 import view.model.GameViewModel;
 
+@SuppressWarnings("serial")
 public class GameScreen extends JPanel {
     // Instance variables
-    private AppFrame view;
     private GameViewModel viewModel;
 
     // Constructor
-    public GameScreen(AppFrame view) {
-        this.view = view;
+    public GameScreen() {
     }
 
     @Override

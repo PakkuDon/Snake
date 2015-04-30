@@ -17,10 +17,6 @@ public class GameScreen extends JPanel {
     // Instance variables
     private GameViewModel viewModel;
 
-    // Constructor
-    public GameScreen() {
-    }
-
     @Override
     public void paintComponent(Graphics g) {
         // Clear screen

@@ -65,7 +65,7 @@ public class GameTickController implements ActionListener {
                 model.saveScore(newRecord);
 
                 // Display scores
-                new HighScoreDialog(view, model.getRecords());
+                new HighScoreDialog(view, model);
             }
         }
     }

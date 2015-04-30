@@ -35,47 +35,10 @@ public class GameModel {
         this.state = State.INACTIVE;
 
         // Attempt to load high scores from file
-        Scanner sc = null;
-        try {
-            sc = new Scanner(new File(SCORES_FILE));
-            // Parse contents of each line
-            for (int i = 0; i < records.length; i++) {
-                String line = sc.nextLine();
-                String[] tokens = line.split(",");
-                if (tokens.length != 2) {
-                    throw new IOException("Scores in invalid format");
-                }
-
-                int score = Integer.parseInt(tokens[1]);
-                ScoreRecord record = new ScoreRecord(tokens[0], score);
-                records[i] = record;
-            }
-
-            // If file has trailing records, throw validation error
-            if (sc.hasNext()) {
-                throw new IOException("Scores in invalid format");
-            }
-            
-            sc.close();
-
-            // Sort high score list
-            Arrays.sort(records, new Comparator<ScoreRecord>() {
-                @Override
-                public int compare(ScoreRecord a, ScoreRecord b) {
-                    return b.getScore() - a.getScore();
-                }
-            });
-        }
-        catch (NumberFormatException | IOException e) {
-            // TODO: Do something with exception
-            // Populate high scores with empty scores
+        // If load fails, populate high scores with default scores 
+        if (!readScoreData()) {
             for (int i = 0; i < records.length; i++) {
                 records[i] = new ScoreRecord();
-            }
-        }
-        finally {
-            if (sc != null) {
-                sc.close();
             }
         }
     }
@@ -212,18 +175,7 @@ public class GameModel {
             }
         }
 
-        // Write score data out to file
-        try {
-            FileWriter fw = new FileWriter(SCORES_FILE);
-            for (int i = 0; i < records.length; i++) {
-                fw.write(String.format("%s,%s%n", 
-                        records[i].getName(), records[i].getScore()));
-            }
-            fw.close();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        writeScoreData();
         return true;
     }
 
@@ -236,5 +188,81 @@ public class GameModel {
      */
     public boolean isNewRecord(int score) {
         return score > records[records.length - 1].getScore();
+    }
+
+    public void clearScores() {
+        // Replace stored high scores with default high scores
+        for (int i = 0; i < records.length; i++) {
+            records[i] = new ScoreRecord();
+        }
+
+        // Write out default scores
+        writeScoreData();
+    }
+
+    public boolean readScoreData() {
+        Scanner sc = null;
+        // Attempt to read parse contents of score file
+        try {
+            sc = new Scanner(new File(SCORES_FILE));
+            // Parse contents of each line
+            for (int i = 0; i < records.length; i++) {
+                String line = sc.nextLine();
+                String[] tokens = line.split(",");
+                if (tokens.length != 2) {
+                    throw new IOException("Scores in invalid format");
+                }
+
+                int score = Integer.parseInt(tokens[1]);
+                ScoreRecord record = new ScoreRecord(tokens[0], score);
+                records[i] = record;
+            }
+
+            // If file has trailing records, throw validation error
+            if (sc.hasNext()) {
+                throw new IOException("Scores in invalid format");
+            }
+
+            sc.close();
+
+            // Sort high score list
+            Arrays.sort(records, new Comparator<ScoreRecord>() {
+                @Override
+                public int compare(ScoreRecord a, ScoreRecord b) {
+                    return b.getScore() - a.getScore();
+                }
+            });
+            
+            return true;
+        }
+        // On validation error, log error and return
+        catch (NumberFormatException | IOException e) {
+            System.err.println("Failed to read from " + SCORES_FILE);
+            return false;
+        }
+        finally {
+            if (sc != null) {
+                sc.close();
+            }
+        }
+    }
+
+    public boolean writeScoreData() {
+        // Attempt to write out high scores to text file 
+        // Scores currently written out as CSV
+        try {
+            FileWriter fw = new FileWriter(SCORES_FILE);
+            for (int i = 0; i < records.length; i++) {
+                fw.write(String.format("%s,%s%n", 
+                        records[i].getName(), records[i].getScore()));
+            }
+            fw.close();
+        }
+        // On failure, log error and return
+        catch (IOException e) {
+            System.err.println("Failed to write to " + SCORES_FILE);
+            return false;
+        }
+        return true;
     }
 }

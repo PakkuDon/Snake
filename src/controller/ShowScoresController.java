@@ -21,6 +21,6 @@ public class ShowScoresController implements ActionListener {
     @Override
     // Display high scores
     public void actionPerformed(ActionEvent e) {
-        new HighScoreDialog(view, model.getRecords());
+        new HighScoreDialog(view, model);
     }
 }

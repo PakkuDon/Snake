@@ -55,6 +55,10 @@ public class HighScoreDialog extends JDialog {
         this.setVisible(true);
     }
     
+    /**
+     * Updates view to display given records. 
+     * @param records
+     */
     public void showScores(ScoreRecord[] records) {
         scorePanel.removeAll();
         for (int i = 0; i < records.length; i++) {

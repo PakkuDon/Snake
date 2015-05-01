@@ -27,6 +27,7 @@ public class GameModel {
 
     // Constructor
     public GameModel(int width, int height) {
+        // Initialise various properties
         this.width = width;
         this.height = height;
         this.rand = new Random();
@@ -44,35 +45,66 @@ public class GameModel {
     }
 
     // Getters
+    /**
+     * Returns the width of game field.
+     * @return 
+     */
     public int getWidth() {
         return width;
     }
-
+    
+    /**
+     * Returns the height of game field.
+     * @return
+     */
     public int getHeight() {
         return height;
     }
 
+    /**
+     * Returns the list of points that make up the snake's body.
+     * @return 
+     */
     public List<Point> getSnake() { 
         return snake.getBody();
     }
 
+    /**
+     * Returns the game's food instance.
+     * @return
+     */
     public Food getFood() {
         return food;
     }
 
+    /**
+     * Returns the score of the current or last-played game.
+     * @return
+     */
     public int getScore() {
         return score;
     }
 
+    /**
+     * Returns the current State object associated with the game.
+     * @return
+     */
     public State getGameState() {
         return state;
     }
 
+    /**
+     * Returns an array containing the current high scores.
+     * @return
+     */
     public ScoreRecord[] getRecords() {
         return records;
     }
 
     // Actions
+    /**
+     * Initialises components for a new game.
+     */
     public void start() {
         snake = new Snake(this.width / 2, this.height / 2, 
                 INITIAL_SNAKE_LENGTH);
@@ -81,12 +113,20 @@ public class GameModel {
         this.state = State.RUNNING;
     }
 
+    /**
+     * Moves food instance to a new random point and resets its value. 
+     */
     public void spawnFood() {
         food.setX(rand.nextInt(width));
         food.setY(rand.nextInt(height));
         food.resetScore();
     }
 
+    /**
+     * Performs next in-game 'tick'. Advances snake forward one tile and
+     * checks if snake has collided either with a food instance or itself.
+     * Game state is adjusted accordingly.
+     */
     public void move() {
         // Move snake 
         snake.move();
@@ -135,6 +175,12 @@ public class GameModel {
         }
     }
 
+    /**
+     * Sets the snake's current direction. Returns true if direction 
+     * set successfully.
+     * @param direction
+     * @return
+     */
     public boolean setSnakeDirection(Direction direction) {
         // If given direction opposite or equal to snake's current direction
         // return false
@@ -147,6 +193,11 @@ public class GameModel {
         return true;
     }
 
+    /**
+     * Sets game status either to paused or running state depending on flag.
+     * Does not change state if game is inactive. 
+     * @param pause
+     */
     public void setPaused(boolean pause) {
         if (pause) {
             this.state = State.PAUSED;
@@ -156,6 +207,12 @@ public class GameModel {
         }
     }
 
+    /**
+     * Attempts to add record instance to list of high scores. Returns true 
+     * on success, false otherwise.
+     * @param record
+     * @return
+     */
     public boolean saveScore(ScoreRecord record) {
         // Reject record if its score does not fit on the scoreboard
         if (!isNewRecord(record.getScore())) {
@@ -179,9 +236,8 @@ public class GameModel {
         return true;
     }
 
-
     /**
-     * Checks whether or not the given score beats the lowest score 
+     * Returns true if the given score beats the lowest score 
      * on the high scores list.
      * @param score
      * @return
@@ -190,6 +246,10 @@ public class GameModel {
         return score > records[records.length - 1].getScore();
     }
 
+    /**
+     * Removes all set high scores. High scores are replaced by default
+     * 0-score records.
+     */
     public void clearScores() {
         // Replace stored high scores with default high scores
         for (int i = 0; i < records.length; i++) {
@@ -200,6 +260,10 @@ public class GameModel {
         writeScoreData();
     }
 
+    /**
+     * Attempts to load scores from a text file at a pre-defined location.  
+     * @return True on success, false on either an IO or format exception.
+     */
     public boolean readScoreData() {
         Scanner sc = null;
         // Attempt to read parse contents of score file
@@ -247,6 +311,10 @@ public class GameModel {
         }
     }
 
+    /**
+     * Attempts to write scores to a file at a pre-defined location.  
+     * @return True on success, false on IO exception.
+     */
     public boolean writeScoreData() {
         // Attempt to write out high scores to text file 
         // Scores currently written out as CSV

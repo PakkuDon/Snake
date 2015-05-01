@@ -17,10 +17,18 @@ public class ScoreRecord {
     }
     
     // Getters
+    /**
+     * Returns the name associated with this score record.
+     * @return
+     */
     public String getName() {
         return name;
     }
     
+    /**
+     * Returns the score associated with this score record.
+     * @return
+     */
     public int getScore() {
         return score;
     }

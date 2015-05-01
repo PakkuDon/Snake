@@ -22,12 +22,12 @@ public class ClearScoresController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent arg0) {
         // Prompt user for confirmation
-        // If user confirms action, delete scores
         int option = JOptionPane.showConfirmDialog(view, 
                 "Are you sure to want to clear the scoreboard?\n"
                 + "Lost scores cannot be recovered.",
                 view.getTitle() + " - Confirmation required",
                 JOptionPane.WARNING_MESSAGE);
+        // If user confirms action, delete scores and refresh view
         if (option == JOptionPane.YES_OPTION) {
             model.clearScores();
             view.showScores(model.getRecords());

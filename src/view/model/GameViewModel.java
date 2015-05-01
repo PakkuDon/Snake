@@ -29,30 +29,58 @@ public class GameViewModel {
     }
     
     // Getters
+    /**
+     * Returns the width of the game's field.
+     * @return
+     */
     public int getWidth() {
         return width;
     }
     
+    /**
+     * Returns the height of the game's field.
+     * @return
+     */
     public int getHeight() {
         return height;
     }
     
+    /**
+     * Returns the list of points that make up the snake's body.
+     * @return
+     */
     public List<Point> getSnake() {
         return snake;
     }
     
+    /**
+     * Returns the location of the game's food instance.
+     * @return
+     */
     public Point getFood() {
         return food;
     }
     
+    /**
+     * Returns the game's current score.
+     * @return
+     */
     public int getScore() {
         return score;
     }
     
+    /**
+     * Returns the current value of the food instance.
+     * @return
+     */
     public int getFoodScore() {
         return foodScore;
     }
     
+    /**
+     * Returns the game's current state.
+     * @return
+     */
     public State getState() {
         return state;
     }

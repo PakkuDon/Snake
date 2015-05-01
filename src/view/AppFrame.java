@@ -50,10 +50,17 @@ public class AppFrame extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * Initialises view components for a new game.
+     */
     public void start() {
         timer.start();
     }
 
+    /**
+     * Updates view components to match the state of the model.
+     * @param viewModel
+     */
     public void update(GameViewModel viewModel) {
         if (viewModel.getState() != State.RUNNING) {
             timer.stop();
@@ -62,6 +69,10 @@ public class AppFrame extends JFrame {
         footer.update(viewModel);
     }
     
+    /**
+     * Updates view components to match pause state.
+     * @param pauseFlag
+     */
     public void setPaused(boolean pauseFlag) {
         if (pauseFlag) {
             timer.stop();
@@ -74,6 +85,10 @@ public class AppFrame extends JFrame {
         toolBar.setPauseText(pauseFlag);
     }
     
+    /**
+     * Binds event handlers to arbitrary keys.
+     * @param model
+     */
     private void setKeyBindings(GameModel model) {
         // Retrieve mappings for frame
         InputMap inputMap = ((JComponent)this.getContentPane()).

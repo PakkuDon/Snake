@@ -12,24 +12,44 @@ public class Point {
     }
     
     // Getters
+    /**
+     * Returns x-value of this point.
+     * @return
+     */
     public int getX() {
         return x;
     }
     
+    /**
+     * Returns y-value of this point.
+     * @return
+     */
     public int getY() {
         return y;
     }
     
     // Setters
+    /**
+     * Sets x-value of this point.
+     * @param x
+     */
     public void setX(int x) {
         this.x = x;
     }
     
+    /**
+     * Sets y-value of this point.
+     * @param y
+     */
     public void setY(int y) {
         this.y = y;
     }
     
     @Override
+    /**
+     * Returns true if the given object is a point instance that has 
+     * the same x,y values as this point.
+     */
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;

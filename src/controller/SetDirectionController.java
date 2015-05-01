@@ -26,7 +26,8 @@ public class SetDirectionController extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // Set snake direction and move forward
+        // Set snake direction
+        // If direction set successfully, update components
         if (model.setSnakeDirection(direction)) {
             // Update model
             model.move();

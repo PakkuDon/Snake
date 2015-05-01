@@ -19,6 +19,7 @@ public class NewGameController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        // Initialise game properties and start timer
         model.start();
         view.start();
     }

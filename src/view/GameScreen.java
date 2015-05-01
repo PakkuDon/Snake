@@ -59,6 +59,10 @@ public class GameScreen extends JPanel {
         }
     }
 
+    /**
+     * Updates view to match model's state.
+     * @param viewModel
+     */
     public void update(GameViewModel viewModel) {
         this.viewModel = viewModel;
         this.repaint();

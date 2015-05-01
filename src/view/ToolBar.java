@@ -42,6 +42,10 @@ public class ToolBar extends JToolBar {
         this.add(showScoresBtn);
     }
     
+    /**
+     * Modifies text on pause button according to game state.
+     * @param isPaused
+     */
     public void setPauseText(boolean isPaused) {
         if (isPaused) {
             pauseBtn.setText("Unpause");

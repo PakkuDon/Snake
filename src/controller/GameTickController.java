@@ -61,6 +61,7 @@ public class GameTickController implements ActionListener {
                     }
                 } while (name == null);
                 
+                // Submit new score
                 ScoreRecord newRecord = new ScoreRecord(name, score);
                 model.saveScore(newRecord);
 

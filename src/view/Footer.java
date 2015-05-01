@@ -27,6 +27,10 @@ public class Footer extends JPanel {
         this.add(foodScoreLabel);
     }
     
+    /**
+     * Updates view to match model's state.
+     * @param viewModel
+     */
     public void update(GameViewModel viewModel) {
         scoreLabel.setText("Score: " + viewModel.getScore());
         foodScoreLabel.setText("Food score: " + viewModel.getFoodScore());

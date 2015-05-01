@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
 import model.Point;
-import model.State;
+import model.constants.State;
 import view.model.GameViewModel;
 
 @SuppressWarnings("serial")

@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import model.constants.Direction;
+import model.constants.State;
+
 public class GameModel {
     // Constants
     private static final int INITIAL_SNAKE_LENGTH = 3;
@@ -70,13 +73,21 @@ public class GameModel {
     }
 
     /**
-     * Returns the game's food instance.
+     * Returns the point associated with the game's food instance.
      * @return
      */
-    public Food getFood() {
-        return food;
+    public Point getFood() {
+        return food.getPoint();
     }
-
+    
+    /**
+     * Returns the current value of the game's food instance. 
+     * @return
+     */
+    public int getFoodScore() {
+        return food.getScore();
+    }
+    
     /**
      * Returns the score of the current or last-played game.
      * @return
@@ -182,15 +193,7 @@ public class GameModel {
      * @return
      */
     public boolean setSnakeDirection(Direction direction) {
-        // If given direction opposite or equal to snake's current direction
-        // return false
-        if (snake.getDirection().isOpposite(direction) 
-                || direction == snake.getDirection()) {
-            return false;
-        }
-        // Else set direction
-        snake.setDirection(direction);
-        return true;
+        return snake.setDirection(direction);
     }
 
     /**

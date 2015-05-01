@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
-import model.Direction;
 import model.GameModel;
+import model.constants.Direction;
 import view.AppFrame;
 import view.model.GameViewModel;
 
@@ -35,8 +35,8 @@ public class SetDirectionController extends AbstractAction {
             // Generate view model from model data
             GameViewModel viewModel = new GameViewModel(
                     model.getWidth(), model.getHeight(),
-                    model.getSnake(), model.getFood().getPoint(), 
-                    model.getScore(), model.getFood().getScore(), 
+                    model.getSnake(), model.getFood(), 
+                    model.getScore(), model.getFoodScore(), 
                     model.getGameState());
             
             // Update view

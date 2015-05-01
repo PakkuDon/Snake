@@ -3,7 +3,7 @@ package view.model;
 import java.util.List;
 
 import model.Point;
-import model.State;
+import model.constants.State;
 
 public class GameViewModel {
     // Instance variables

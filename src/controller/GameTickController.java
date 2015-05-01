@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 import model.GameModel;
 import model.ScoreRecord;
-import model.State;
+import model.constants.State;
 import view.AppFrame;
 import view.HighScoreDialog;
 import view.model.GameViewModel;
@@ -31,8 +31,8 @@ public class GameTickController implements ActionListener {
         // Generate view model from model data
         GameViewModel viewModel = new GameViewModel(
                 model.getWidth(), model.getHeight(),
-                model.getSnake(), model.getFood().getPoint(), 
-                model.getScore(), model.getFood().getScore(), 
+                model.getSnake(), model.getFood(), 
+                model.getScore(), model.getFoodScore(), 
                 model.getGameState());
 
         // Update view

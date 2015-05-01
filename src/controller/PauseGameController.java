@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
 import model.GameModel;
-import model.State;
+import model.constants.State;
 import view.AppFrame;
 
 @SuppressWarnings("serial")

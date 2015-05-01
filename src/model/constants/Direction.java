@@ -1,4 +1,4 @@
-package model;
+package model.constants;
 
 /**
  * Constants represent a direction that an object is facing in. Each 

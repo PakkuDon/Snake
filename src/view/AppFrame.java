@@ -10,9 +10,9 @@ import javax.swing.JFrame;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
 
-import model.Direction;
 import model.GameModel;
-import model.State;
+import model.constants.Direction;
+import model.constants.State;
 import view.model.GameViewModel;
 import controller.GameTickController;
 import controller.PauseGameController;
